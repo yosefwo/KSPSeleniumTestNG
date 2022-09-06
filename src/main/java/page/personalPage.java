@@ -112,7 +112,7 @@ public class personalPage {
             return "No error message";
         }
     }
-    public int checkError() throws InterruptedException {
+    public int checkErrors() throws InterruptedException {
         Thread.sleep(5000);
         try {
             var errors = driver.findElements(errorClass);

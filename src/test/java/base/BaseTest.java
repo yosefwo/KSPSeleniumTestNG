@@ -5,12 +5,14 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.ITestResult;
+import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import page.HomePage;
 import utils.EventReporter;
+import utils.GetProperties;
 import utils.WindowManager;
 
 import java.io.File;
@@ -26,7 +28,16 @@ public class BaseTest {
 
     private EventFiringWebDriver driver;
     protected HomePage homePage;
-    private final String urlHome = "https://ksp.co.il/web/";
+    private  String urlHome;
+
+    {
+        try {
+            urlHome = new GetProperties().getUrl();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private By logo = By.className("logo-base");
     private By close2 = By.cssSelector("img.btn-close");
     private By close = By.cssSelector("img._24EHh");
@@ -122,9 +133,6 @@ public class BaseTest {
     public WindowManager getWindowManager(){
         return new WindowManager(driver);
     }
-    public void notClose(){
-        quit = false;
-    }
 
     private void setCookie(){
         driver.manage().deleteAllCookies();
@@ -154,7 +162,11 @@ public class BaseTest {
         String date = dtf.format(LocalDateTime.now());
         try{
             // rename a file in the same directory
-            Files.move(source, source.resolveSibling(newName + date + ".png"));
+            String pathName = newName + date + ".png";
+            Files.move(source, source.resolveSibling(pathName));
+
+            Reporter.log("look screenshot at: " + source.resolveSibling(pathName));
+//            Reporter.log("\"<br> <img src="+System.getProperty("user.dir")+ pathName + " /> <br>");
 
         } catch (IOException e) {
             e.printStackTrace();

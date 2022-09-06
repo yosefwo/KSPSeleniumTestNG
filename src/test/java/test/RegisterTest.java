@@ -18,8 +18,7 @@ public class RegisterTest extends BaseTest {
         personalPage.paneRegister_enter_last_name("abc123");
         personalPage.paneRegister_enter_password("abc123ABC123");
         personalPage.paneRegister_enter_password2("abc123ABC123");
-        Assert.assertEquals( personalPage.checkError(),0,"An error was found");
-
+        Assert.assertEquals( personalPage.checkErrors(),0,"An error was found");
     }
     @Test
     public void register_enterOnlyMailAdress_submit() throws InterruptedException {
@@ -32,7 +31,7 @@ public class RegisterTest extends BaseTest {
         personalPage.clickSubmit();
         Assert.assertEquals(personalPage.getText_Error_MailAdress(),
                 "No error message",
-                "Mail address is valid Shouldn't show up error massage");
+                "The email address is valid, an error message should not appear, but there is");
     }
     @Test
     public void negativ_register_enterOnlyMailAdress_submit() throws InterruptedException {
@@ -41,13 +40,20 @@ public class RegisterTest extends BaseTest {
         personalPage.click_createAcount();
 
         personalPage.paneRegister_enter_MailAdress("abc123@.ksp.com");
-        personalPage.clickSubmit();
+//        personalPage.clickSubmit();
         Assert.assertEquals(personalPage.getText_Error_MailAdress(),
                 "כתובת דוא\"ל שמלאתם איננה תקינה",
                 "not apear error massage: כתובת דוא\"ל שמלאתם איננה תקינה");
-        Assert.assertEquals(personalPage.checkError(), 5,
-                "the number of errors not equal 5 like the exepted found: " + personalPage.checkError()  + " errors");
+        Assert.assertEquals(personalPage.checkErrors(), 5,
+                "the number of errors not equal 5 like the exepted found: " + personalPage.checkErrors()  + " errors");
+        personalPage.paneRegister_enter_MailAdress("abc123@kspcom");
+        Assert.assertEquals(personalPage.getText_Error_MailAdress(),
+                "כתובת דוא\"ל שמלאתם איננה תקינה",
+                "not apear error massage: כתובת דוא\"ל שמלאתם איננה תקינה");
+        Assert.assertEquals(personalPage.checkErrors(), 5,
+                "the number of errors not equal 5 like the exepted found: " + personalPage.checkErrors()  + " errors");
 
+        quit = false;
     }
     @Test
     public void register_enterOnlyPhoneNumber_submit() throws InterruptedException {
@@ -61,9 +67,9 @@ public class RegisterTest extends BaseTest {
                 "No error message1",
                 "phone number is valid Shouldn't show up error massage");
         int numErrorsExpected = 4;
-        Assert.assertEquals(personalPage.checkError(), numErrorsExpected,
+        Assert.assertEquals(personalPage.checkErrors(), numErrorsExpected,
                 "the number of errors not equal " + numErrorsExpected
-                        + " like the exepted found: " + personalPage.checkError()  + " errors");
+                        + " like the exepted found: " + personalPage.checkErrors()  + " errors");
 
     }
     @Test
@@ -77,8 +83,8 @@ public class RegisterTest extends BaseTest {
         Assert.assertEquals(personalPage.getText_Error_PhoneNumber(),
                 "דרוש טל' נייד ישראלי - 10 ספרות",
                 "not apear error massage: כתובת דוא\"ל שמלאתם איננה תקינה");
-        Assert.assertEquals(personalPage.checkError(), 5,
-                "the number of errors not equal 5 like the exepted found: " + personalPage.checkError()  + " errors");
+        Assert.assertEquals(personalPage.checkErrors(), 5,
+                "the number of errors not equal 5 like the exepted found: " + personalPage.checkErrors()  + " errors");
         System.out.println();
 /*        for (int i = 0; i < personalPage.checkError(); i++) {
             System.out.println(personalPage.getTextError(i));

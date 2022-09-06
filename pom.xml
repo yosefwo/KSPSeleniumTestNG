@@ -34,7 +34,12 @@
 
         <!-- מה שמסומן כהערה זה אופצייה שמקלה על ההתקנה ובהמשך
         -->
-
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>reportng</artifactId>
+            <version>1.2.2</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
