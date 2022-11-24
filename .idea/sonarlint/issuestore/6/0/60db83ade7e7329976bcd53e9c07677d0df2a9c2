@@ -1,0 +1,7 @@
+
+f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒú¸ò
+^
+java:S1854"HRemove this useless assignment to local variable "element_iconPersonal".(ƒú¸ò
+O
+java:S1481"9Remove this unused "element_iconPersonal" local variable.(ƒú¸ò
+V	java:S125"<This block of commented-out lines of code should be removed.(¯ÇÈ®ûÿÿÿÿ

@@ -1,3 +1,4 @@
+/*
 package utils;
 
 import org.openqa.selenium.By;
@@ -81,6 +82,7 @@ public class EventReporter implements WebDriverEventListener {
 
     @Override
     public void beforeClickOn(WebElement element, WebDriver driver) {
+        System.out.println();
         try {
             System.out.println("Clicking on " + element.getText() + "tag name: "+ element.getTagName());
         } catch (Exception e) {
@@ -105,12 +107,14 @@ public class EventReporter implements WebDriverEventListener {
         } catch (Exception e) {
             System.out.print("element without text: ");
         }
-        var itKeysToSend = Arrays.stream(keysToSend).iterator();
+        */
+/*var itKeysToSend = Arrays.stream(keysToSend).iterator();
         System.out.print(". enter: " );
         while (itKeysToSend.hasNext()) {
             System.out.print(itKeysToSend.next());
         }
-        System.out.println();
+        System.out.println();*//*
+
     }
 
     @Override
@@ -163,3 +167,4 @@ public class EventReporter implements WebDriverEventListener {
 
     }
 }
+*/

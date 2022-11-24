@@ -106,6 +106,11 @@ public class WindowManager {
         var windows = driver.getWindowHandles();
         windows.forEach(driver.switchTo()::window);
 
+        /*    public static void waitForElementInvisible(WebElement element, int timer) throws IOException, InterruptedException {
+        WebDriverWait wait = new WebDriverWait(getDriver(), timer);
+		wait.until(ExpectedConditions.invisibilityOf(element));
+    }*/
+
 //        Iterator<String> stringIterator = windows.iterator();
 //        driver.switchTo().window(stringIterator.next());
 //        driver.switchTo().window(stringIterator.next());
