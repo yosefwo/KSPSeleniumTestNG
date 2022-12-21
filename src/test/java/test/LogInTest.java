@@ -1,5 +1,6 @@
 package test;
 
+import base.WebDriverInstance;
 import org.testng.annotations.Listeners;
 import utils.DataProviderExel;
 import utils.ExtentManager;
@@ -17,6 +18,7 @@ public class LogInTest extends BaseTest {
     private final String messageErroer_passEnter = "The login test was successful in entering the personal area";
     private final String messageErroer_failedEnter = "The login test failed to enter the personal area";
     public static boolean notYet_beginning_LogInTest;
+    private String expectedError_Email_or_phone = "הערך שמלאתם לא תקין";
 
     public LogInTest() throws IOException {
         super(); //parent without constructor
@@ -37,7 +39,7 @@ public class LogInTest extends BaseTest {
         ExtentManager.log("Starting login_enterAllValid()..." );
         PersonalPage personalPage = new PersonalPage();
         personalPage = beginningLogInTest(personalPage);
-
+        personalPage.click_LogInByEmail();
         personalPage.loginPane_enter_MailAdress("abc123@ksp.com");
         personalPage.loginPane_enter_password("abc123ABC123");
         Assert.assertEquals( personalPage.checkErrors(),0,"An error was found");
@@ -61,6 +63,7 @@ public class LogInTest extends BaseTest {
         if (notYet_beginning_LogInTest){
             System.out.println("start of firstTimeOnly");
             personalPage = beginningLogInTest(personalPage);
+            personalPage.click_LogInByEmail();
             ExtentManager.log("login_enterOnlyMailAdress()..." );
         } else{
             System.out.println("firstTimeOnly = false and skip beginningOfThe_LogInTest()");
@@ -69,7 +72,7 @@ public class LogInTest extends BaseTest {
         personalPage.loginPane_enter_MailAdress(mailAddressValid);
         try {
             // using an assertion to make sure the total amount is what we are expecting
-            Assert.assertEquals(personalPage.loginPane_getText_Error_MailAdress(),
+            Assert.assertEquals(personalPage.loginPane_getText_Error_Email_or_phone(),
                     "No error message");
             ExtentManager.passChild("When entering a valid email address, an error message does not appear");
         } catch (AssertionError a) {
@@ -83,6 +86,7 @@ public class LogInTest extends BaseTest {
         if (notYet_beginning_LogInTest){
             System.out.println("start of firstTimeOnly");
             personalPage = beginningLogInTest(personalPage);
+            personalPage.click_LogInByEmail();
             ExtentManager.log("login_enterOnlyMailAdress()..." );
         } else{
             System.out.println("firstTimeOnly = false and skip beginningOfThe_LogInTest()");
@@ -92,16 +96,18 @@ public class LogInTest extends BaseTest {
         ExtentManager.logChild("loginPane_enter_MailAdress("+mailAddressValid+")");
         try {
             // using an assertion to make sure the total amount is what we are expecting
-            Assert.assertEquals(personalPage.loginPane_getText_Error_MailAdress(),
-                    "No error message");
-            ExtentManager.passChild("When entering a valid email address, an error message does not appear");
+            Assert.assertEquals(personalPage.loginPane_getText_Error_Email_or_phone(),
+                    expectedError_Email_or_phone);
+            ExtentManager.passChild("When entering a invalid email address, an error message does need appear");
         } catch (AssertionError a) {
-            Assert.fail("The email address is valid, an error message should not appear, but there is");
-            ExtentManager.failChild("The email address is valid, an error message should not appear, but there is");
+            System.out.println(a.getMessage());
+            System.out.println("aaa");
+            System.out.println(expectedError_Email_or_phone);
+            String textLogError = "When entering a invalid email address and expected to: \""+expectedError_Email_or_phone +"\"but did not appear";
+            Assert.assertEquals(personalPage.loginPane_getText_Error_Email_or_phone(),
+                    expectedError_Email_or_phone);
+            Assert.fail(textLogError);
+            ExtentManager.failChild(textLogError);
         }
     }
-
-
-
-
 }

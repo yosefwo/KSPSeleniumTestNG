@@ -5,7 +5,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+//import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -54,7 +54,7 @@ public class ExtentManager {
         extentReport.setSystemInfo("Environment", "QA");
         extentReport.setSystemInfo("Tester", "yosef wollman");
         htmlReporter.config().setCSS(".r-img {width : 50%;}");
-        htmlReporter.config().setReportName("Regression Test");
+      /*----------------------------------------------*/  htmlReporter.config().setReportName("Regression Test");///////////////////take from group name
         htmlReporter.config().setDocumentTitle("Test Results");
         htmlReporter.config().setTheme(Theme.DARK);
 
@@ -100,33 +100,40 @@ public class ExtentManager {
 
     public synchronized static void log(String message) {
         System.out.println("log("+ message +")");
+        WebDriverInstance.printByThreadId("log("+ message +")");
         getMethodTest().info(message);
     }
     public synchronized static void logChild(String message) {
-        System.out.println("log("+ message +")");
+        System.out.println("INFO("+ message +")");
+        WebDriverInstance.printByThreadId("log("+ message +")");
         getDataProviderTest().info(message);
     }
 
     public synchronized static void pass(String message) {
         System.out.println("pass("+ message +")");
+        WebDriverInstance.printByThreadId("pass("+ message +")");
+
         getMethodTest().pass(message);
     }
     public synchronized static void passChild(String message) {
         if(!DataProviderExel.useDataProvider) {
             pass(message);
-            System.out.println("שים לב אפשר להתשמ באותה שיטה ואם זה לא ילד ישלח לאבא ההודעה הזו:"+ message);
+            System.out.println("Note that you can use the same method and if it's not a child, send this message to father:"+ message);
         }
         else {
             System.out.println("pass("+ message +")");
+            WebDriverInstance.printByThreadId("pass("+ message +")");
             getDataProviderTest().pass(message);
         }
     }
     public synchronized static void fail(String message) {
         System.out.println("fail("+ message +")");
+        WebDriverInstance.printByThreadId("fail("+ message +")");
         getMethodTest().fail(message);
     }
     public synchronized static void failChild(String message) {
         System.out.println("fail("+ message +")");
+        WebDriverInstance.printByThreadId("fail("+ message +")");
         getDataProviderTest().fail(message);
     }
 

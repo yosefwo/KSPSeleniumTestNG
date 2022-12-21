@@ -1,5 +1,6 @@
 package utils;
 
+import base.WebDriverInstance;
 import com.aventstack.extentreports.ExtentTest;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
@@ -19,12 +20,17 @@ public class Listeners implements ITestListener{
     @Override
     public void onTestStart(ITestResult result) {
         String methodName = result.getMethod().getMethodName();
+        WebDriverInstance.setThreadTestNameMap(methodName);
         if (result.getParameters().length>0) {
             DataProviderExel.useDataProvider = true;
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            if (ExtentManager.methodTest.get() != null && ExtentManager.methodTest.get().getModel().getName().equals(methodName)) { }
+            System.out.println("test with parameters");
+            if (ExtentManager.methodTest.get() != null && ExtentManager.methodTest.get().getModel().getName().equals(methodName)) {
+                System.out.println("Listeners26");
+            }
             else {
                 ExtentManager.createTest(result);
+                System.out.println("Listeners30");
+
             }
             String paramName = Arrays.asList(result.getParameters()).toString();
             ExtentTest paramTest = ExtentManager.methodTest.get().createNode(paramName);
@@ -32,7 +38,7 @@ public class Listeners implements ITestListener{
         } else {
             DataProviderExel.useDataProvider = false;
 
-            System.out.println("**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("test without parameters");
 
             ExtentManager.createTest(result);
         }

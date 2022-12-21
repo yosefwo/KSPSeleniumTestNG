@@ -1,16 +1,20 @@
-/*
+
 package utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.events.WebDriverEventListener;
+import org.openqa.selenium.support.events.EventFiringDecorator;
+import org.openqa.selenium.support.events.WebDriverListener;
 
-import java.util.Arrays;
+public class EventReporter extends EventFiringDecorator {
+    public EventReporter(WebDriverListener... listeners) {
+        super(listeners);
+    }
 
-public class EventReporter implements WebDriverEventListener {
-    @Override
+}
+
+
+
+/*  @Override
     public void beforeAlertAccept(WebDriver driver) {
 
     }
@@ -84,11 +88,11 @@ public class EventReporter implements WebDriverEventListener {
     public void beforeClickOn(WebElement element, WebDriver driver) {
         System.out.println();
         try {
-            System.out.println("Clicking on " + element.getText() + "tag name: "+ element.getTagName());
+            System.out.println("Clicking on " + element.getText() + "tag name: " + element.getTagName());
         } catch (Exception e) {
             try {
-                System.out.println(" TagName: "+element.getTagName());
-            }catch (Exception e2) {
+                System.out.println(" TagName: " + element.getTagName());
+            } catch (Exception e2) {
                 System.out.println("clicl on enithing but not fund text or tag name");
             }
         }
@@ -106,14 +110,19 @@ public class EventReporter implements WebDriverEventListener {
             System.out.print("Into a text field: " + element.getAttribute("name"));
         } catch (Exception e) {
             System.out.print("element without text: ");
-        }
-        */
+        }*//*
+
+    }
+}
+*/
 /*var itKeysToSend = Arrays.stream(keysToSend).iterator();
         System.out.print(". enter: " );
         while (itKeysToSend.hasNext()) {
             System.out.print(itKeysToSend.next());
         }
         System.out.println();*//*
+*/
+/*
 
     }
 

@@ -40,8 +40,8 @@ public class PersonalPage {
     private By logIn_remember_me = By.cssSelector("input[name=remember]");
     private By loginSubmit = By.xpath("//*[@id=\"login_using_email\"]/button");
 
-    private By logInError_email = By.xpath("//*[@id=\"login_using_email\"]/div[1]/span");
-    private By logInError_password = By.xpath("//*[@id=\"login_using_email\"]/div[2]/span");
+    private By logInError_email = By.xpath("//*[@id=\"login_using_email\"]/div[2]/span");
+    private By logInError_password = By.xpath("//*[@id=\"login_using_email\"]/div[3]/span");
     private Set<Cookie> cookieSet;
 
 
@@ -156,11 +156,14 @@ public class PersonalPage {
             System.out.println("login not clicked");
         }
     }
+    public void click_LogInByEmail() {
+        driver.findElement(By.className("icon-email")).click();
+    }
     public void loginPane_enter_MailAdress(String mailAdress) {
         WebElement element_MailAdress = driver.findElement(logIn_email);
 //        new Actions(driver).scrollToElement(element_MailAdress).perform();
-        if (driver.findElement(logIn_email).getText().length() > 0 )
-            driver.findElement(logIn_email).clear();
+        driver.findElement(logIn_email).sendKeys("1");
+        driver.findElement(logIn_email).clear();
         driver.findElement(logIn_email).sendKeys(mailAdress);
         driver.findElement(logIn_password).click();
         ExtentManager.logChild("loginPane_enter_MailAdress("+mailAdress+")");
@@ -181,7 +184,7 @@ public class PersonalPage {
     }
 
 
-    public String loginPane_getText_Error_MailAdress() {
+    public String loginPane_getText_Error_Email_or_phone() {
         try {
             return driver.findElement(logInError_email).getText();
         } catch (Exception e) {
@@ -282,5 +285,6 @@ public class PersonalPage {
         }*/
         System.out.println();
     }
+
 
 }
